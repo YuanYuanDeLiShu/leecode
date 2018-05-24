@@ -1,42 +1,19 @@
-class Solution(object):
-    def searchRange(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: List[int]
-        """
-        l, r = 0, len(nums) - 1
-        found = 0
-        start, end = 0, 0
-        while l < r:
-            m = l + (r - l) / 2
-            if target > nums[m]:
-                l = m + 1
-            else:
-                if target == nums[m]:
-                    found += 1
-                r = m - 1
-               
-        if nums[l] == target:
-            found += 1
-            
-        start = r 
-        if nums[r] != target or r < 0:
-            start = r + 1
-            
-        l, r = 0, len(nums) - 1
-        while l < r:
-            m = l + (r - l) / 2
-            if target < nums[m]:
-                r = m - 1
-            else:
-                if target == nums[m]:
-                    found += 1
-                l = m + 1
-        end = l
-        if nums[l] != target:
-            end = l - 1
-         
-        if found == 0:
-            return [-1, -1]
-        return [start, end]
+class Solution:  
+    # @param {integer[]} nums  
+    # @param {integer} target  
+    # @return {integer[]}  
+    def searchRange(self, nums, target):  
+        length=len(nums);l=0;r=length-1;mid=0  
+        res=[-1,-1]  
+        while l<=r:  
+            mid=(l+r)>>1;  
+            if nums[mid]==target:break  
+            elif nums[mid]>target:r=mid-1  
+            else:l=mid+1  
+        if l<=r:  
+            l=mid-1  
+            while l>=0 and nums[l]==nums[mid]:l-=1  
+            r=mid+1  
+            while r<length and nums[r]==nums[mid]:r+=1  
+            res[0]=l+1;res[1]=r-1  
+        return res  
